@@ -1,0 +1,40 @@
+name: Local IIS Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build the project
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Publish the project
+        run: dotnet publish -c Release -o ${{ github.workspace }}/publish
+
+      - name: Copy files to IIS folder
+        run: |
+          # Define IIS folder path (set this to the folder IIS is serving, e.g., inetpub/wwwroot/YourAppFolderName)
+          $iisFolder = 'C:\Users\naram\source\repos\Tap-CustomApps\ClaimsDeployment'
+
+          # Remove existing files in IIS folder
+          Remove-Item -Recurse -Force $iisFolder\*
+
+          # Copy published files to IIS folder
+          Copy-Item -Path "${{ github.workspace }}\publish\*" -Destination $iisFolder -Recurse
+        shell: pwsh
