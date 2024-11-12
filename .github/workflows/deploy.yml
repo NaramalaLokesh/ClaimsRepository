@@ -18,8 +18,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: List directory for debugging
-        run: dir "${{ github.workspace }}/Tap-CustomApps/ClaimsDeployment"
+      - name: List directory structure for debugging
+        run: |
+          # List all directories in ClaimsRepository to check the structure
+          Get-ChildItem -Path "${{ github.workspace }}/ClaimsRepository" -Recurse
+        shell: pwsh
 
       - name: Restore dependencies
         run: dotnet restore "${{ github.workspace }}/Tap-CustomApps/ClaimsDeployment/ClaimsPrincipal.csproj"
