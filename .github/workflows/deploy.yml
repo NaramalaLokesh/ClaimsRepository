@@ -19,16 +19,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        working-directory: ${{ github.workspace }}\\Tap-CustomApps\\ClaimsDeployment
-        run: dotnet restore
+        run: dotnet restore ${{ github.workspace }}/Tap-CustomApps/ClaimsDeployment/ClaimsPrincipal.csproj
 
       - name: Build the project
-        working-directory: ${{ github.workspace }}\\Tap-CustomApps\\ClaimsDeployment
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build ${{ github.workspace }}/Tap-CustomApps/ClaimsDeployment/ClaimsPrincipal.csproj --no-restore --configuration Release
 
       - name: Publish the project
-        working-directory: ${{ github.workspace }}\\Tap-CustomApps\\ClaimsDeployment
-        run: dotnet publish -c Release -o ${{ github.workspace }}\\publish
+        run: dotnet publish ${{ github.workspace }}/Tap-CustomApps/ClaimsDeployment/ClaimsPrincipal.csproj -c Release -o ${{ github.workspace }}/publish
 
       - name: Copy files to IIS folder
         run: |
