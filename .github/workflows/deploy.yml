@@ -18,10 +18,10 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: List directory structure for debugging
+      - name: List entire directory structure for debugging
         run: |
-          # List all directories in ClaimsRepository to check the structure
-          Get-ChildItem -Path "${{ github.workspace }}/ClaimsRepository" -Recurse
+          # Check directory structure from root of github.workspace
+          Get-ChildItem -Path "${{ github.workspace }}" -Recurse
         shell: pwsh
 
       - name: Restore dependencies
