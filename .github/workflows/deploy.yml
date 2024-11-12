@@ -24,6 +24,12 @@ jobs:
           Get-ChildItem -Path "${{ github.workspace }}" -Recurse
         shell: pwsh
 
+      - name: List project files
+        run: |
+          ls -R ${{ github.workspace }}
+        shell: pwsh
+
+
       - name: Restore dependencies
         run: dotnet restore "${{ github.workspace }}\ClaimsPrincipal.csproj" # Adjust path if needed
 
