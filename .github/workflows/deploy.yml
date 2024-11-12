@@ -27,6 +27,9 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore "${{ github.workspace }}\ClaimsPrincipal.csproj" # Adjust path if needed
 
+      - name: Clean the project
+        run: dotnet clean "${{ github.workspace }}\ClaimsPrincipal.csproj"
+
       - name: Build the project
         run: dotnet build "${{ github.workspace }}\ClaimsPrincipal.csproj" --no-restore --configuration Release
 
